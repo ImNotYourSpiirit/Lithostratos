@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lithostratos — Éditeur géologique</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="logo">
+            <span class="logo-icon">◈</span>
+            <div>
+                <h1>Lithostratos</h1>
+                <p>Éditeur de coupes géologiques</p>
+            </div>
+        </div>
+
+        <div class="top-actions">
+            <button id="undoBtn" title="Annuler">↶</button>
+            <button id="redoBtn" title="Rétablir">↷</button>
+            <button id="resetBtn" class="danger">Réinitialiser</button>
+            <button id="exportBtn" class="primary">Exporter SVG</button>
+        </div>
+    </header>
+
+
+    <main class="workspace">
+
+        <!-- BARRE D'OUTILS -->
+        <aside class="toolbar">
+
+            <h2>Outils</h2>
+
+            <button class="tool active" data-tool="relief">
+                <span>⛰</span>
+                <div>
+                    <strong>Relief</strong>
+                    <small>Dessiner la surface</small>
+                </div>
+            </button>
+
+            <button class="tool" data-tool="select">
+                <span>↖</span>
+                <div>
+                    <strong>Sélection</strong>
+                    <small>Modifier un élément</small>
+                </div>
+            </button>
+
+            <div class="separator"></div>
+
+            <h2>Géologie</h2>
+
+            <button class="tool disabled-tool" title="Disponible prochainement">
+                <span>╱</span>
+                <div>
+                    <strong>Faille</strong>
+                    <small>Bientôt</small>
+                </div>
+            </button>
+
+            <button class="tool disabled-tool" title="Disponible prochainement">
+                <span>⌁</span>
+                <div>
+                    <strong>Plissement</strong>
+                    <small>Bientôt</small>
+                </div>
+            </button>
+
+            <button class="tool disabled-tool" title="Disponible prochainement">
+                <span>▰</span>
+                <div>
+                    <strong>Intrusion</strong>
+                    <small>Bientôt</small>
+                </div>
+            </button>
+
+            <button class="tool disabled-tool" title="Disponible prochainement">
+                <span>∿</span>
+                <div>
+                    <strong>Érosion</strong>
+                    <small>Bientôt</small>
+                </div>
+            </button>
+
+        </aside>
+
+
+        <!-- ZONE DE DESSIN -->
+        <section class="canvas-area">
+
+            <div class="canvas-header">
+                <div>
+                    <strong>Coupe géologique</strong>
+                    <span id="coordinates">X : — | Y : —</span>
+                </div>
+
+                <div class="canvas-info">
+                    Relief libre
+                </div>
+            </div>
+
+            <div id="canvasWrapper">
+
+                <svg id="geoCanvas"
+                     viewBox="0 0 1200 700"
+                     preserveAspectRatio="none">
+
+                    <!-- Grille -->
+                    <g id="grid"></g>
+
+                    <!-- Couches -->
+                    <g id="layersGroup"></g>
+
+                    <!-- Relief -->
+                    <path id="reliefFill"></path>
+                    <path id="reliefLine"></path>
+
+                    <!-- Curseur -->
+                    <circle id="cursorPoint"
+                            r="5"
+                            cx="-100"
+                            cy="-100"></circle>
+
+                </svg>
+
+                <div id="emptyMessage">
+                    <div class="empty-icon">⛰</div>
+                    <h3>Dessine ton premier relief</h3>
+                    <p>
+                        Sélectionne <strong>Relief</strong> puis clique et
+                        fais glisser ta souris dans la zone de dessin.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="canvas-footer">
+                <span>Largeur : 1200 m</span>
+                <span>Profondeur : 700 m</span>
+                <span id="drawingStatus">Prêt</span>
+            </div>
+
+        </section>
+
+
+        <!-- PANNEAU DROIT -->
+        <aside class="properties">
+
+            <section class="panel-section">
+
+                <div class="section-title">
+                    <h2>Stratigraphie</h2>
+                    <button id="addLayerBtn" class="small-button">+</button>
+                </div>
+
+                <p class="description">
+                    Les couches sont représentées de haut en bas.
+                </p>
+
+                <div id="layersList"></div>
+
+            </section>
+
+
+            <section class="panel-section">
+
+                <h2>Propriétés</h2>
+
+                <div id="propertiesContent">
+
+                    <div class="no-selection">
+                        <span>◈</span>
+                        <p>
+                            Sélectionne une couche pour modifier
+                            ses propriétés.
+                        </p>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </aside>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
